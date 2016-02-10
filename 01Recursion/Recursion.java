@@ -6,9 +6,9 @@ public class Recursion implements hw01 {
 	if (x < 0) {
 	    throw new IllegalArgumentException();
 	}
-	return findRoot(x, 1); 
+	return Root(x, 1); 
     }
-    public double findRoot(double x, double guess) {
+    public double Root(double x, double guess) {
 	if (x == 0) {
 	    return 0.0;
 	}
@@ -16,6 +16,6 @@ public class Recursion implements hw01 {
 	    return guess;
 	}
 	guess = (x / guess + guess) / 2;
-	return findRoot(x, guess);
+	return Root(x, guess);
     }
 }
