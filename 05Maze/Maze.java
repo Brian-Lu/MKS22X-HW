@@ -19,19 +19,35 @@ public class Maze{
       3. When the file is not found, print an error and exit the program.
     */
     public Maze(String filename, boolean ani){
-        //COMPLETE CONSTRUCTOR
-	Scanner s = new Scanner(new File(filename));
-	Scanner a;
-	while(s.hasNextLine()) {
-	    a = new Scanner(s.nextLine());
-	    
+	animate = ani;
+	startx = -1;
+	try{
+	    Scanner s = new Scanner(new File(filename));
+	    ArrayList<String> ary = new ArrayList<String>();
+	    while(s.hasNextLine()){
+		ary.add(s.nextLine());
+	    }
+	    maze = new char[ary.size()][ary.get(0).length()];
+	    for(int col = 0; col < ary.size(); col++){
+		String L = ary.get(col);
+		for(int row = 0; row < ary.length(); row++){
+		    maze[col][row]=ary.charAt(row);
+		    if(ary.charAt(row)=='S'){
+			startx = row;
+			starty = col;
+		    }
+		}
+	    }
+	}catch(FileNotFoundException e){
+	    System.out.println("File Not Found");
+	}
     }
 
 
     /*Main Solve Function
 
       Things to note:
-       When no S is contained in maze, print an error and return false.
+      When no S is contained in maze, print an error and return false.
     */
     public boolean solve(){
         if(startx < 0){
@@ -50,11 +66,11 @@ public class Maze{
       The S is replaced with '@' but the 'E' is not.
 
       Postcondition:
-        Returns true when the maze is solved,
-        Returns false when the maze has no solution.
+      Returns true when the maze is solved,
+      Returns false when the maze has no solution.
 
-        All visited spots that were not part of the solution are changed to '.'
-        All visited spots that are part of the solution are changed to '@'
+      All visited spots that were not part of the solution are changed to '.'
+      All visited spots that are part of the solution are changed to '@'
 
     */
     private boolean solve(int x, int y){
@@ -62,9 +78,34 @@ public class Maze{
             System.out.println(this);
             wait(20);
         }
-
-        //COMPLETE SOLVE
-        return false; //so it compiles
+	if(maze[y][x] == 'E') { //Base Case
+	    return true;
+	}
+	else{
+	    maze[y][x] = '@';
+	}
+	if(maze[y][x+1]!='#' && maze[y][x+1]!='@' && maze[y][x+1]!='.'){
+	    if(solve(x+1,y)){
+		return true;
+            }
+	}
+	if(maze[y+1][x]!='#' && maze[y+1][x]!='@' && maze[y+1][x]!='.'){
+	    if(solve(x,y+1)){
+		return true;
+	    }
+	}
+	if(maze[y-1][x]!='#' && maze[y-1][x]!='@' && maze[y-1][x]!='.'){
+	    if(solve(x,y-1)){
+                return true;
+            }
+        }
+	if(maze[y][x-1]!='#' && maze[y][x-1]!='@' && maze[y][x-1]!='.'){
+	    if(solve(x-1,y)){
+		return true;
+            }
+        }
+	maze[y][x]='.';
+	return false;    
     }
 
 
