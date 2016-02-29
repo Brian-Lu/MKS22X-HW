@@ -1,81 +1,52 @@
-public class KnightBoard {
-    public int[][] board;
-    public int counter;
-    public KnightBoard(int x) {
+public class KnightBoard{
+    private int[][] board;
+    public KnightBoard(int x){
 	board = new int[x][x];
-	counter = 0;
     }
-    public KnightBoard(int x, int y) {
-	board = new int[x][y];
-	counter = 0;
+    public KnightBoard(int row,int col){
+	board = new int[row][col];
     }
-    public void solve() {
-	if (solveH(0, 0, 0, board.length)) {
-	    printSolution();
-	} 
-	else {
-	    System.out.println("No Can Do");
+    public boolean solveH(int row, int col, int counter){
+	if(row >= board.length || row<0 || col >= board[0].length || col < 0){
+            return false;
+        }
+        for(int i = 0; i < board.length; i++){
+            for(int a = 0; a < board[0].length; a++){
+                if(board[i][a] >= counter){
+                    board[i][a] = 0;
+                }
+            }
+        }
+        if(counter == board.length*board[0].length + 1){
+	    return true;
 	}
-    }
-    public boolean solveH(int row, int col, int index, int N) {
-	if (board[row][col] != 0) {
+	else if (board[row][col] > 0){
 	    return false;
 	}
-	board[row][col] = counter++;
-	if (index == N * N - 1) {
-	    return true;
+	else {
+	    board[row][col] = counter;
+	    return (solveH(row + 1, col + 2, counter + 1) || solveH(row + 1, col - 2, counter + 1) ||
+		    solveH(row + 2, col + 1, counter + 1) || solveH(row + 2, col - 1, counter + 1) ||
+		    solveH(row - 1, col + 2, counter + 1) || solveH(row - 1, col - 2, counter + 1) ||
+		    solveH(row - 2, col + 1, counter + 1) || solveH(row - 2, col - 1, counter + 1));
 	}
-	if (able(row + 1, col + 2, N) && solveH(row + 1, col + 2, index + 1, N)) {
-	    return true;
-	}
-	if (able(row + 1, col - 2, N) && solveH(row + 1, col - 2, index + 1, N)) {
-	    return true;
-	}
-	if (able(row - 1, col + 2, N) && solveH(row - 1, col + 2, index + 1, N)) {
-	    return true;
-	}
-	if (able(row - 1, col - 2, N) && solveH(row - 1, col - 2, index + 1, N)) {
-	    return true;
-	}
-	if (able(row + 2, col + 1, N) && solveH(row + 2, col + 1, index + 1, N)) {
-	    return true;
-	}
-	if (able(row + 2, col - 1, N) && solveH(row + 2, col - 1, index + 1, N)) {
-	    return true;
-	}
-	if (able(row - 2, col + 1, N) && solveH(row - 2, col + 1, index + 1, N)) {
-	    return true;
-	}
-	if (able(row - 2, col - 1, N) && solveH(row - 2, col - 1, index + 1, N)) {
-	    return true;
-	}
-	board[row][col] = 0;
-	counter--;
-	return false;
-
     }
-    public boolean able(int row, int col, int tab) {
-	if (row >= 0 && col >= 0 && tab > row && tab > col) {
-	    return true;
-	}
-	return false;
+    public boolean solve(){
+	return solveH(0, 0, 1);
     }
     public void printSolution(){
-	String ret1 = "";
-	for(int i = 0;i < board.length; i++){
-	    ret1 += printH(i) + "\n";
-	}
-	System.out.println(ret1);
-    }
-    public String printH(int n){
 	String ret = "";
-	for(int i = board[0].length - 1; i >= 0; i--){
-	    if(board[n][i]<10){
-		ret += board[n][i] + "  ";
-	    }else{
-		ret += board[n][i] + " ";
+	for(int i = 0; i < board.length; i++){
+	    for (int a = 0; a < board[0].length; a++) {
+		if (board[i][a] < 10) {
+		    ret += " " + board[i][a] + " ";
+		}
+		else {
+		    ret += board[i][a] + " ";
+		}
 	    }
+	    ret += "\n";
 	}
-	return ret;
+	System.out.println(ret);
     }
 }
