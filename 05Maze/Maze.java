@@ -29,10 +29,10 @@ public class Maze{
 	    }
 	    maze = new char[ary.size()][ary.get(0).length()];
 	    for(int col = 0; col < ary.size(); col++){
-		String L = ary.get(col);
-		for(int row = 0; row < ary.length(); row++){
-		    maze[col][row]=ary.charAt(row);
-		    if(ary.charAt(row)=='S'){
+		String str = ary.get(col);
+		for(int row = 0; row < str.length(); row++){
+		    maze[col][row] = str.charAt(row);
+		    if(str.charAt(row)=='S'){
 			startx = row;
 			starty = col;
 		    }
