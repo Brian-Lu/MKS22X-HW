@@ -36,7 +36,7 @@ public class Bronze{
 	int counter = height[X][Y];
 	for(int r = X - 1; r < X + 2;r++){
 	    for(int c = Y - 1; c < Y + 2;c++){
-		if(height[r][c]>greatest){
+		if(height[r][c]> counter){
 		    counter = height[r][c];
 		}
 	    }
@@ -80,8 +80,7 @@ public class Bronze{
 	return (ret * 5184);
     }
     public static void main(String[]args){
-	String file = args[0];
-	Bronze pasture = new Bronze(file);
+	Bronze pasture = new Bronze("makelake.in");
 	System.out.println(pasture.calculate() + ",7, Lu, Brian");
     }
 }
