@@ -80,7 +80,14 @@ public class Bronze{
 	return (ret * 5184);
     }
     public static void main(String[]args){
-	Bronze pasture = new Bronze("makelake.in");
+	String file;
+	if(args.length != 0) {
+	    file = args[0];
+	}
+	else{
+	    file = "makelake.in";
+	}
+	Bronze pasture = new Bronze(file);
 	System.out.println(pasture.calculate() + ",7, Lu, Brian");
     }
 }

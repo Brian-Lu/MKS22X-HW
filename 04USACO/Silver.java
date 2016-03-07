@@ -65,7 +65,14 @@ public class Silver{
 	return solve();	
     }
     public static void main(String[]args){
-	Silver x = new Silver("ctravel.in");
+	String file;
+	if(args.length != 0) {
+	    file = args[0];
+	}
+	else{
+	    file = "ctravel.in";
+	}
+	Silver x = new Silver(file);
 	x.solve();
     }
 }
