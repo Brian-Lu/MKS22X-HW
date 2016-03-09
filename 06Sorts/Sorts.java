@@ -2,7 +2,14 @@ public class Sorts{
     public static String name() {
 	return "7,Lu,Brian";
     }
-    public static int[] mergesort(int[] data){
+    public static void mergesort(int[] data) {
+	int[] ary = new int[data.length];
+	ary = mergesortH(data);
+	for(int i = 0; i < data.length; i++) {
+	    data[i] = ary[i];
+	}
+    }
+    public static int[] mergesortH(int[] data){
 	if(data.length == 1) {
 	    return data;
 	}
@@ -20,7 +27,7 @@ public class Sorts{
 	for(int i = (data.length / 2); i < data.length; i++) {
 	    aryB[i-(data.length / 2)] = data[i];
 	}
-	return merge(mergesort(aryA), mergesort(aryB));
+	return merge(mergesortH(aryA), mergesortH(aryB));
     }
     public static int[] merge(int[] aryA, int[] aryB) {
 	int counter1, counter2;
