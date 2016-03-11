@@ -1,8 +1,9 @@
+import java.util.Arrays;
 public class Quick{
     public static String name() {
         return "7,Lu,Brian";
     }
-    private static int partition(int[]data, int left, int right) {
+    private static int partitionOld(int[]data, int left, int right) {
         int element = (int)((Math.random() * (right - left + 1)) + left);
         int pElement = data[element];
         int counter = 0;
@@ -36,42 +37,61 @@ public class Quick{
         }
         return left + counter;
     }
-    public static void quickSort(int[] data) {
-        quickSort(data, 0, data.length - 1);
+    public static void quickSortOld(int[] data) {
+        quickSortOld(data, 0, data.length - 1);
     }
-    public static void quickSort(int[] data, int left, int right) {
+    public static void quickSortOld(int[] data, int left, int right) {
         if(right - left > 0) {
-            int x = partition(data, left, right);
-            quickSort(data,left, x - 1);
-            quickSort(data,x+1, right);
+            int x = partitionOld(data, left, right);
+            quickSortOld(data,left, x - 1);
+            quickSortOld(data,x+1, right);
         }
     }
-    public static int quickselect(int[] data, int k) {
-        return quickselectH(data,k,0,data.length-1);
+    public static int quickselectOld(int[] data, int k) {
+        return quickselectHOld(data,k,0,data.length-1);
     }
-    public static int quickselectH(int[] data,int k, int left, int right) {
+    public static int quickselectHOld(int[] data,int k, int left, int right) {
         if(left == right) {
             return data[left];
         }
-        int x = partition(data, left, right);
+        int x = partitionOld(data, left, right);
         if(x == k) {
             return data[x];
         }
         if(k > x) {
-            return quickselectH(data, k, x+1, right);
+            return quickselectHOld(data, k, x+1, right);
         }
         else {
-            return quickselectH(data, k, left, x-1);
+            return quickselectHOld(data, k, left, x-1);
         }
     }
-    /*
-    public static void main(String[]args){
-        int[] a = {1 , 2, 5, 67 , 4, 3, -5, 12, 51, 516, 7, 12, 61, -15, -29, 15, 17, 122, -122, 122};
-        quickSort(a);
-        System.out.println(a.length);
-        for(int i = 0; i < a.length; i++) {
-            System.out.println(a[i]);
-        }
+    public static int[] partition(int[] data, int left, int right) {
+	int [] ret = int[2];
+	int element = (int)((Math.random() * (right - left)) + right);
+	int pElement = data[element];
+	int repeats = 0;
+	int lessThan = 0;
+	for (int i = 0; i < data.length; i++) {
+	    if(data[i] == pElement){
+		repeats++;
+	    }
+	    if(data[i] < pElement) {
+		lessThan++;
+	    }
+	}
+	int greaterThan = (data.length - repeats) - lessThan;
+	return ret;
     }
-    */
+    public static void main(String[]args) {
+	int[] d = new int[4000000];
+	int[] c = new int[d.length];
+	for(int i = 0; i < d.length; i++) {
+	    d[i] = (int)(Math.random() * Integer.MAX_VALUE);
+	    c[i] = d[i];
+	}
+        quickSortOld(d);
+	Arrays.sort(c);
+	System.out.println(Arrays.equals(d,c));
+    }
+	
 }
