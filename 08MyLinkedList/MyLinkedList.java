@@ -1,17 +1,17 @@
-public class MyLinkedList{
+public class MyLinkedList <T>{
     private class LNode {
 	public LNode next;
-	public int value;
-	public LNode(int data) {
+	public T value;
+	public LNode(T data) {
 	    value = data;
 	}
-	public int getValue() {
+	public T getValue() {
 	    return value;
 	}
 	public LNode getNext() {
 	    return next;
 	}
-	public void setValue(int data) {
+	public void setValue(T data) {
 	    value = data;
 	}
 	public void setNext(LNode data) {
@@ -36,7 +36,7 @@ public class MyLinkedList{
 	}
 	return ans+"]";
     }
-    public int get(int index) {
+    public T get(int index) {
 	LNode current = head;
 	int i = 0;
 	while(i < index) {
@@ -45,18 +45,18 @@ public class MyLinkedList{
 	}
 	return current.getValue();
     }
-    public int set(int index, int newValue) {
+    public T set(int index,T newValue) {
 	LNode current = head;
 	int i = 0;
 	while(i < index) {
 	    current = current.getNext();
 	    i++;
 	}
-	int ret = current.getValue();
+	T ret = current.getValue();
 	current.setValue(newValue);
 	return ret;
     }
-    public int remove (int index) {
+    public T remove (int index) {
 	if(index < 0 || index >= size) {
 	    return -1;
 	}
@@ -76,12 +76,12 @@ public class MyLinkedList{
 		current = current.getNext();
 		i++;
 	    }
-	    int ret = current.getValue();
+	    T ret = current.getValue();
 	    holder.setNext(current.getNext());
 	    return ret;
 	}
     }
-    public boolean add(int index, int value) {
+    public boolean add(int index, T value) {
 	if(index < 0 || index > size) {
 	    return false;
 	}
@@ -103,7 +103,7 @@ public class MyLinkedList{
 	size += 1;
 	return true;
     }
-    public boolean add(int value) {
+    public boolean add(T value) {
 	if(head == null) {
 	    head = new LNode(value);
 	    last = head;
@@ -115,11 +115,11 @@ public class MyLinkedList{
 	size += 1;
 	return true;
     }
-    public int indexOf(int value) {
+    public int indexOf(T value) {
 	LNode current = head;
 	int i = 0;
 	while(current != null) {
-	    if(current.getValue() == value) {
+	    if(current.getValue().equals(value)) {
 		return i;
 	    }
 	    current = current.getNext();
