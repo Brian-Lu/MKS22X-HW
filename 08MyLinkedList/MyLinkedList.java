@@ -58,10 +58,10 @@ public class MyLinkedList <T>{
     }
     public T remove (int index) {
 	if(index < 0 || index >= size) {
-	    return -1;
+	    throw new IndexOutOfBoundsException();
 	}
 	if(index == 0) {
-	    int ret = head.getValue();
+	    T ret = head.getValue();
 	    head = head.getNext();
 	    return ret;
 	}
