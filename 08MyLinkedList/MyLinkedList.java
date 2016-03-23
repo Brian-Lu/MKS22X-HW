@@ -37,6 +37,9 @@ public class MyLinkedList <T>{
 	return ans+"]";
     }
     public T get(int index) {
+	if(index < 0 || index >= size()) {
+	    throw new IndexOutOfBoundsException();
+	}
 	LNode current = head;
 	int i = 0;
 	while(i < index) {
@@ -46,6 +49,9 @@ public class MyLinkedList <T>{
 	return current.getValue();
     }
     public T set(int index,T newValue) {
+	if(index < 0 || index >= size()) {
+	    throw new IndexOutOfBoundsException();
+	}
 	LNode current = head;
 	int i = 0;
 	while(i < index) {
@@ -56,39 +62,43 @@ public class MyLinkedList <T>{
 	current.setValue(newValue);
 	return ret;
     }
-    public T remove (int index) {
-	if(index < 0 || index >= size) {
+    
+    public T remove(int index) {
+	if (index >= size || index < 0) {
 	    throw new IndexOutOfBoundsException();
 	}
-	if(index == 0) {
-	    T ret = head.getValue();
+	T ret;
+	if (index == 0) {
+	    ret = head.getValue();
 	    head = head.getNext();
-	    return ret;
-	}
-	else{
+	} else {
 	    LNode current = head;
-	    LNode holder = null;
 	    int i = 0;
-	    while(i != index) {
-		if(i == index - 1) {
-		    holder = current;
-		}
+	    while (i + 1 < index) {
 		current = current.getNext();
 		i++;
 	    }
-	    T ret = current.getValue();
-	    holder.setNext(current.getNext());
-	    return ret;
+	    if (index == size - 1) {
+		last = current;
+	    }
+	    ret = current.getNext().getValue();
+	    current.setNext(current.getNext().getNext());
 	}
+	size--;
+	return ret;
     }
+
     public boolean add(int index, T value) {
 	if(index < 0 || index > size) {
-	    return false;
+	    throw new IndexOutOfBoundsException();
 	}
 	LNode temp = new LNode(value);
 	if(index == 0 || head == null) {
 	    temp.setNext(head);
 	    head = temp;
+	}
+	if(index == size()) {
+	    return add(value);
 	}
 	else{
 	    LNode current = head;
@@ -126,8 +136,9 @@ public class MyLinkedList <T>{
 	    i++;
 	}
 	return -1;
-    }
+    } 
 }
+  
 	    
 
 	    
