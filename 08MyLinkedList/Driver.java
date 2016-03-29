@@ -9,7 +9,6 @@ public class Driver{
             n.add(""+i);
             m.add(""+i);
         }
-
         try{
             m.add(-1,"oops");
             System.out.println("\n\nAdd -1 #####################################");
@@ -40,10 +39,6 @@ public class Driver{
 
         }
 
-
-
-
-
         //replace toString(true) with a debug to string that shows the head/tail
         System.out.println(m.toString());
         System.out.println(n);
@@ -69,7 +64,6 @@ public class Driver{
         n.add(n.size(),"PENULTIMATE");
         System.out.println(m.toString());
         System.out.println(n);
-
         //test add
         m.add("Z-END!");
         n.add("Z-END!");
@@ -77,7 +71,7 @@ public class Driver{
         System.out.println(n);
         Random rand = new Random(2);
         for(int i = 0; i < 6000; i++){
-            int op = rand.nextInt(3);
+            int op = rand.nextInt(4);
 
             if(op == 0 || n.size()==0){
                 n.add(""+i);

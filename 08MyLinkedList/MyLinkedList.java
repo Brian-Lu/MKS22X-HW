@@ -92,6 +92,9 @@ public class MyLinkedList <T> implements Iterable<T>{
             throw new IndexOutOfBoundsException();
         }
         LNode temp = new LNode(value);
+        if(index == size()) {
+            return add(value);
+        }
         if(index == 0) {
             temp.setNext(head);
             head = temp;
@@ -171,4 +174,3 @@ public class MyLinkedList <T> implements Iterable<T>{
         return x.doubleValue();
     }
 }
-
