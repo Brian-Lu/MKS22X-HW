@@ -43,6 +43,7 @@ public class ParenDemo{
                 }
             }
         }
+        return (stack.size() == 0);
     }
 }
 
