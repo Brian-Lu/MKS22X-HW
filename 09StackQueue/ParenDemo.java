@@ -15,7 +15,7 @@ public class ParenDemo{
         MyStack<Character> stack = new MyStack<Character>();
         for(int i = 0; i < s.length(); i++) {
             char a = s.charAt(i);
-            if(a == '{' || a == '[' || a == '(') {
+            if(a == '{' || a == '[' || a == '(' || a == '<') {
                 stack.push(a);
             }
             if(a == '}') {
@@ -42,6 +42,13 @@ public class ParenDemo{
                     stack.pop();
                 }
             }
+	    if(a == '>') {
+		if(stack.isEmpty() || stack.peek() != '<')){
+		return false;
+	    }
+	    else{
+		stack.pop();
+	    }
         }
         return (stack.size() == 0);
     }
