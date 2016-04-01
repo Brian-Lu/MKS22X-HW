@@ -5,6 +5,7 @@ public class MyLinkedList <T> implements Iterable<T>{
     private int size;
     private class LNode {
         public LNode next;
+	public LNode prev;
         public T value;
         public LNode(T data) {
             value = data;
@@ -15,12 +16,18 @@ public class MyLinkedList <T> implements Iterable<T>{
         public LNode getNext() {
             return next;
         }
+	public LNode getPrevious() {
+	    return prev;
+	}
         public void setValue(T data) {
             value = data;
         }
         public void setNext(LNode data) {
             next = data;
         }
+	public void setPrevious(LNode data) {
+	    prev = data;
+	}
     }
     public int size() {
         return size;
@@ -71,6 +78,12 @@ public class MyLinkedList <T> implements Iterable<T>{
         if (index == 0) {
             ret = head.getValue();
             head = head.getNext();
+	    if(head == null) {
+		last = null;
+	    }
+	    else{
+		head.setPrevious(null);
+	    }
         } else {
             LNode current = head;
             int i = 0;
@@ -83,6 +96,9 @@ public class MyLinkedList <T> implements Iterable<T>{
             }
             ret = current.getNext().getValue();
             current.setNext(current.getNext().getNext());
+	    if(current.getNext() != null) {
+		current.getNext().setPrevious(current);
+	    }
         }
         size--;
         return ret;
@@ -97,6 +113,9 @@ public class MyLinkedList <T> implements Iterable<T>{
         }
         if(index == 0) {
             temp.setNext(head);
+	    if(head != null) {
+		head.setPrevious(temp);
+	    }
             head = temp;
             size++;
             return true;
@@ -108,7 +127,11 @@ public class MyLinkedList <T> implements Iterable<T>{
             i++;
         }
         temp.setNext(current.getNext());
+	if(temp.getNext() != null) {
+	    temp.getNext().setPrevious(temp);
+	}
         current.setNext(temp);
+	temp.setPrevious(current);
         size++;
         return true;
     }
@@ -119,6 +142,7 @@ public class MyLinkedList <T> implements Iterable<T>{
         }
         else {
             last.setNext(new LNode(value));
+	    last.getNext().setPrevious(last);
             last = last.getNext();
         }
         size += 1;
@@ -145,13 +169,8 @@ public class MyLinkedList <T> implements Iterable<T>{
             next = head;
         }
         public boolean hasNext() {
-            if(next == null) {
-                return false;
-            }
-            else{
-                return true;
-            }
-        }
+	    return next != null;
+	}
         public T next() {
             if(!hasNext()) {
                 throw new NoSuchElementException();
