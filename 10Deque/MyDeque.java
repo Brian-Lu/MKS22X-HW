@@ -11,6 +11,12 @@ public class MyDeque<T>{
 	end = 0;
     }
     private void grow() {
+	T[] temp = (T[]) new Object[data.length * 2];
+	int i = 0;
+	while(i < data.length) {
+	    temp[i] = data[i];
+	}
+	data = temp;
     }
     public void addFirst(T value) {
 	if(size == data.length) {
