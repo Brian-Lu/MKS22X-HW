@@ -33,7 +33,7 @@ public class MyDeque<T>{
 	data = temp;
     }
     public void addFirst(T value) {
-	if(size == data.length) {
+	if(size == data.length - 1) {
 	    grow();
 	}
 	if(start >= 1) {
@@ -46,7 +46,7 @@ public class MyDeque<T>{
 	data[start] = value;
     }
     public void addLast(T value) {
-	if(size == data.length) {
+	if(size == data.length - 1) {
 	    grow();
 	}
 	if(end < data.length - 1) {
@@ -62,30 +62,32 @@ public class MyDeque<T>{
 	if(size < 1) {
 	    throw new NoSuchElementException();
 	}
-	if(start < data.length - 1) {
-	    start++;
-	    size--;
-	    return data[start - 1];
+	T ret = data[head];
+	data[head] = null;
+	if(head + 1 == data.length) {
+	    head = 0;
 	}
-	else{ 
-	    start = 0;
-	    size--;
-	    return data[data.length - 1];
+	else{
+	    head += 1;
 	}
+	size--;
+	return ret;
     }
     public T removeLast() {
 	if(size < 1) {
 	    throw new NoSuchElementException();
 	}
+	T ret = data[end];
+	data[end] = null;
 	if(end > 0) {
 	    end--;
 	    size--;
-	    return data[end + 1];
+	    return ret;
 	}
 	else{
 	    end = data.length - 1;
 	    size--;
-	    return data[0];
+	    return ret;
 	}
     }
     public T getFirst() {
@@ -100,5 +102,12 @@ public class MyDeque<T>{
 	}
 	return data[end];
     }
+    public boolean isEmpty() {
+	return size == 0;
+    }
+    public int size() {
+	return size;
+    }
 }
+
     
