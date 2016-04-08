@@ -16,10 +16,11 @@ public class MyDeque<T>{
     private void grow() {
 	T[] temp = (T[]) new Object[data.length * 2];
 	int a;
+	a = 0;
 	int i;
-	i = head;
-	while(j + 1 <= size) {
-	    temp[j] = data[i];
+	i = start;
+	while(a + 1 <= size) {
+	    temp[a] = data[i];
 	    if(i + 1 <= data.length - 1) {
 		i++;
 	    }
@@ -28,8 +29,8 @@ public class MyDeque<T>{
 	    }
 	    a++;
 	}
-	head = 0;
-	tail = size - 1;
+	start = 0;
+	end = size - 1;
 	data = temp;
     }
     public void addFirst(T value) {
@@ -62,13 +63,13 @@ public class MyDeque<T>{
 	if(size < 1) {
 	    throw new NoSuchElementException();
 	}
-	T ret = data[head];
-	data[head] = null;
-	if(head + 1 == data.length) {
-	    head = 0;
+	T ret = data[start];
+	data[start] = null;
+	if(start + 1 == data.length) {
+	    start = 0;
 	}
 	else{
-	    head += 1;
+	    start++;
 	}
 	size--;
 	return ret;
