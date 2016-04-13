@@ -16,7 +16,7 @@ public class FrontierStack<T> implements Frontier<T> {
 	stack.push(element);
     }
     public boolean hasNext() {
-	if(stack.isEmpty) {
+	if(stack.empty()) {
 	    return false;
 	}
 	else{
