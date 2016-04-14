@@ -55,61 +55,62 @@ public class BetterMaze{
       Keep going until you find a solution or run out of elements on the frontier.
     **/
     private boolean solve(){  
+	boolean a = true;
 	int[] S = {startRow, startCol};
 	Node start = new Node(S, null);
 	placesToGo.add(start);
 	Node current = start;
 	int r = startRow;
 	int c = startCol;
+	int[] temp = S;
 	while(maze[r][c] != 'E') {
+	    if(maze[r][c] != 'S') {
+		maze[r][c] = '.';
+	    }
+	    if ((temp[0] >= 0 && temp[0] < maze.length) && (temp[1] + 1 >= 0 && temp[1] + 1 < maze[1].length))
+		if(maze[temp[0]][temp[1] + 1] != '.' && maze[temp[0]][temp[1] + 1] != '#') {
+		    int[] loc = {temp[0], temp[1] + 1};
+		    Node tempNode = new Node(loc, current);
+		    placesToGo.add(tempNode);
+		}
+	    if ((temp[0] >= 0 && temp[0] < maze.length) && (temp[1] - 1 >= 0 && temp[1] - 1 < maze[1].length))
+		if(maze[temp[0]][temp[1] - 1] != '.' && maze[temp[0]][temp[1] - 1] != '#') {
+		    int[] loc = {temp[0], temp[1] - 1};
+		    Node tempNode = new Node(loc, current);
+		    placesToGo.add(tempNode);
+		}
+	    if ((temp[0] + 1 >= 0 && temp[0] + 1 < maze.length) && (temp[1] >= 0 && temp[1] < maze[1].length))
+		if(maze[temp[0] + 1][temp[1]] != '.' && maze[temp[0] + 1][temp[1]] != '#') {
+		    int[] loc = {temp[0] + 1, temp[1]};
+		    Node tempNode = new Node(loc, current);
+		    placesToGo.add(tempNode);
+		}
+	    if ((temp[0] - 1 >= 0 && temp[0] - 1 < maze.length) && (temp[1] >= 0 && temp[1] < maze[1].length))
+		if(maze[temp[0] - 1][temp[1]] != '.' && maze[temp[0] - 1][temp[1]] != '#') {
+		    int[] loc = {temp[0] - 1, temp[1]};
+		    Node tempNode = new Node(loc, current);
+		    placesToGo.add(tempNode);
+		}
+	    if (a) {
+		if( !(placesToGo.hasNext())) {
+		    return false;
+		}
+		else{
+		    current = placesToGo.next();
+		    temp = current.getRC();
+		    r = temp[0];
+		    c = temp[1];
+		}
+	    }
 	    if(animate) {
 		System.out.println(this);
 		wait(20);
 	    }
-	    if(maze[r][c] != 'S') {
-		maze[r][c] = '.';
-	    }
-	    addHelper(S, current);
-	    if( !(placesToGo.hasNext())) {
-		return false;
-	    }
-	    else{
-		current = placesToGo.next();
-		S = current.getRC();
-		r = S[0];
-		c = S[1];
-	    }
 	}
-	solution = S;
+	solution = temp;
 	return true;
-    }    
-    private void addHelper(int[] ary, Node node) {
-	if ((ary[0] >= 0 && ary[0] < maze.length) && (ary[1] + 1 >= 0 && ary[1] + 1 < maze[1].length))
-	    if(maze[ary[0]][ary[1] + 1] != '.' && maze[ary[0]][ary[1] + 1] != '#') {
-		int[] temp = {ary[0], ary[1] + 1};
-		Node tempNode = new Node(temp, node);
-		placesToGo.add(tempNode);
-	    }
-	if ((ary[0] >= 0 && ary[0] < maze.length) && (ary[1] - 1 >= 0 && ary[1] - 1 < maze[1].length))
-	    if(maze[ary[0]][ary[1] - 1] != '.' && maze[ary[0]][ary[1] - 1] != '#') {
-		int[] temp = {ary[0], ary[1] - 1};
-		Node tempNode = new Node(temp, node);
-		placesToGo.add(tempNode);
-	    }
-	if ((ary[0] + 1 >= 0 && ary[0] + 1 < maze.length) && (ary[1] >= 0 && ary[1] < maze[1].length))
-	    if(maze[ary[0] + 1][ary[1]] != '.' && maze[ary[0] + 1][ary[1]] != '#') {
-		int[] temp = {ary[0] + 1, ary[1]};
-		Node tempNode = new Node(temp, node);
-		placesToGo.add(tempNode);
-	    }
-	if ((ary[0] - 1 >= 0 && ary[0] - 1 < maze.length) && (ary[1] >= 0 && ary[1] < maze[1].length))
-	    if(maze[ary[0] - 1][ary[1]] != '.' && maze[ary[0] - 1][ary[1]] != '#') {
-		int[] temp = {ary[0] - 1, ary[1]};
-		Node tempNode = new Node(temp, node);
-		placesToGo.add(tempNode);
-	    }
-    }
-   
+    } 
+    
    /**mutator for the animate variable  **/
     public void setAnimate(boolean b){
 	animate = b;
