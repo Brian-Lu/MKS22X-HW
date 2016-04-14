@@ -32,7 +32,7 @@ public class BetterMaze{
      *Postcondition:  the correct solution is in the returned array
     **/
     public int[] solutionCoordinates(){
-	return solution;   
+	return solution;
     }    
 
 
