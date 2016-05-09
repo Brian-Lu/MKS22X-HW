@@ -84,9 +84,6 @@ public class MyHeap<T extends Comparable<T>> {
        for(int i = size / 2; i > 0; i--) {
 	   pushDown(i);
        }
-       for(int i = size / 2; i < size; i++) {
-	   pushUp(i);
-       }
    }
    public T delete() {
        if(size == 0) {
@@ -151,4 +148,12 @@ public class MyHeap<T extends Comparable<T>> {
        data[index1] = data[index2];
        data[index2] = holder;
    }  
+   public T peek() {
+       if(size == 0) {
+	   throw new NoSuchElementException();
+       }
+       else {
+	   return data[1];
+       }
+   }
 }
