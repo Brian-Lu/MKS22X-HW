@@ -126,11 +126,12 @@ public class MyHeap<T extends Comparable<T>> {
        data = temp;
    }
    public String toString() {
-       String ret = "";
+       String ret = "[";
        for(int i = 1; i < size; i++) {
 	   ret += data[i] + ", ";
        }
        ret += data[size];
+       ret += "]";
        return ret;
    }
    //do this last
