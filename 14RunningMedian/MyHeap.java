@@ -26,35 +26,30 @@ public class MyHeap<T extends Comparable<T>> {
                      -data[k] and is a valid heap
    **/
    private void pushDown(int k) {
-       if( (k - 1) * 2 < size ) {
+       if( k * 2 + 1  < size ) {
 	   int doubleK = k * 2;
 	   if(isMax) {
-	       if(data[k].compareTo(data[doubleK]) < 0 || data[k].compareTo(data[doubleK + 1]) < 0){
-		   if(data[doubleK].compareTo(data[doubleK + 1]) > 0){
-		       swap(k, doubleK);
-		       pushDown(doubleK);
-		   }
-		   else{
-		       swap(k, doubleK + 1);
-		       pushDown(doubleK + 1);
-		   }
+	       if(data[k].compareTo(data[doubleK]) < 0) {
+		   swap(k, doubleK);
+		   pushDown(doubleK);
+	       }
+	       if(data[k].compareTo(data[doubleK + 1]) < 0) {
+		   swap(k, doubleK + 1);
+		   pushDown(doubleK + 1);
 	       }
 	   }
-	   else{
-	       if(data[k].compareTo(data[doubleK]) > 0 || data[k].compareTo(data[doubleK + 1]) > 0){
-		   if(data[doubleK].compareTo(data[doubleK + 1]) < 0){
-		       swap(k,doubleK);
-		       pushDown(doubleK);
-		   }
-		   else{
-		       swap(k, doubleK + 1);
-		       pushDown(doubleK + 1);
-		   }
+	   else {
+	       if(data[k].compareTo(data[doubleK]) > 0) {
+		   swap(k, doubleK);
+		   pushDown(doubleK);
+	       }
+	       if(data[k].compareTo(data[doubleK + 1]) > 0) {
+		   swap(k, doubleK + 1);
+		   pushDown(doubleK + 1);
 	       }
 	   }
        }
    }
-   
    /**pushUp
       precondition: data is a heap with at most one item
       out of place (element at k)
@@ -157,7 +152,7 @@ public class MyHeap<T extends Comparable<T>> {
 	   return data[1];
        }
    }
-   public int getSize() {
+   public int size() {
        return size;
    }
 }
