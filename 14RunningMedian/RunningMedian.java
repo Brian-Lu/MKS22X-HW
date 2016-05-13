@@ -28,7 +28,7 @@ public class RunningMedian {
 	if( SmallNum.size() == 0) {
 	    SmallNum.add(x);
 	}
-	else if(BigNum.size() == 0 && SmallNum.size() > 0) {
+	else if(BigNum.size() == 0) {
 	    BigNum.add(x);
 	}
 	else {
@@ -47,26 +47,6 @@ public class RunningMedian {
 		BigNum.add(SmallNum.delete());
 	    }
 	}
-    }
-    public String toString() {
-	return SmallNum.toString() + "\n" + BigNum.toString() + "\n" + "median: " + getMedian();
-    }
-    public static void main(String args[]){
-	RunningMedian test = new RunningMedian();
-	test.add(5);
-	System.out.println(test);
-	test.add(10);
-	test.add(2);
-	test.add(19);
-	test.add(-4);
-	test.add(0);
-	test.add(11);
-	test.add(13);
-	test.add(24);
-	test.add(50);
-	test.add(32);
-	test.add(49);
-	System.out.println(test);
     }
 }
 	   
